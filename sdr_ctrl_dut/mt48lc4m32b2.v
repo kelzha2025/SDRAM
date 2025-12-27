@@ -393,7 +393,7 @@ module mt48lc4m32b2
     parameter act  = 4'd5;
     parameter pre  = 4'd6;
     parameter mrs  = 4'd7;
-    parameter ref  = 4'd8;
+    parameter ref_val  = 4'd8;
 
     reg [3:0] command = desl;
 
@@ -1174,7 +1174,7 @@ module mt48lc4m32b2
             else if (~RASNeg_ipd && CASNeg_ipd && ~WENeg_ipd)
                 command = pre;
             else if (~RASNeg_ipd && ~CASNeg_ipd && WENeg_ipd)
-                command = ref;
+                command = ref_val;
             else if (~RASNeg_ipd && ~CASNeg_ipd && ~WENeg_ipd)
                 command = mrs;
 
@@ -1293,7 +1293,7 @@ module mt48lc4m32b2
                             statebank[bank] = mode_set;
                         end
                     end
-                    else if (command == ref)
+                    else if (command == ref_val)
                     begin
                         if (statebank[0] == idle && statebank[1] == idle &&
                             statebank[2] == idle && statebank[3] == idle)
