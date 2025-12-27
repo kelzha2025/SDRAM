@@ -8,7 +8,7 @@ use File::Basename;
 # Usage examples:
 #   perl run_vcs.pl                # compile + run, UVM 1.2, no FSDB
 #   perl run_vcs.pl --fsdb         # compile + run, generate FSDB
-#   perl run_vcs.pl --verdi        # compile + run, then launch Verdi with FSDB and design
+#   perl run_vcs.pl --verdi        # compile + run, enable UVM debug (kdb/trace) and launch Verdi
 #   perl run_vcs.pl --clean        # remove previous build artifacts
 # Options can be combined; --dry-run prints commands without executing.
 
@@ -35,6 +35,7 @@ my $comp_log  = 'comp.log';
 my $sim_log   = 'sim.log';
 my $fsdb_def  = $fsdb ? '+define+FSDB' : '';
 my $fsdb_file = 'sdram_uvm.fsdb';
+my @uvm_verdi_trace = ('+UVM_VERDI_ENABLE=1', '+UVM_VERDI_TRACE=ALL');
 
 my @clean_list = (
     'csrc', 'simv', 'simv.daidir', 'ucli.key', 'vcs.key', 'vc_hdrs.h',
@@ -58,6 +59,7 @@ my @vcs_cmd = (
     '-f', 'tb.f',
     '-top', 'my_top',
     '-debug_access+all',
+    ($verdi_flag ? '-kdb' : ()),
     '-P', "$verdi_home/share/PLI/VCS/LINUX64/novas.tab",
           "$verdi_home/share/PLI/VCS/LINUX64/pli.a",
     ($fsdb_def ? $fsdb_def : ()),
@@ -68,6 +70,7 @@ my @sim_cmd = (
     $simv,
     '+UVM_TESTNAME=' . $uvm_test,
     ($fsdb_def ? $fsdb_def : ()),
+    ($verdi_flag ? @uvm_verdi_trace : ()),
     '-l', $sim_log,
 );
 
@@ -75,12 +78,15 @@ run_cmd(join(' ', @vcs_cmd));
 run_cmd(join(' ', @sim_cmd));
 
 if ($verdi_flag) {
+    # Verdi UVM debug: use KDB (simv.daidir) and optionally FSDB
     if (!-e $fsdb_file) {
-        die "FSDB file $fsdb_file not found. Run with --fsdb or check simulation.\n";
+        print "Warning: FSDB file $fsdb_file not found. Verdi will start without waveform.\n";
     }
     my @verdi_cmd = (
         $verdi_bin,
-        '-ssf', $fsdb_file,
+        '-kdb',
+        '-dbdir', 'simv.daidir',
+        ($fsdb_file && -e $fsdb_file ? ('-ssf', $fsdb_file) : ()),
         '-ssv', 'my_top.sv', 'package.sv',
         '-f', 'dut.f', '-f', 'tb.f',
     );
