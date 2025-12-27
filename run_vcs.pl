@@ -8,7 +8,7 @@ use File::Basename;
 # Usage examples:
 #   perl run_vcs.pl                # compile + run, UVM 1.2, no FSDB
 #   perl run_vcs.pl --fsdb         # compile + run, generate FSDB
-#   perl run_vcs.pl --verdi        # compile + run, enable UVM debug (kdb/trace) and launch Verdi
+#   perl run_vcs.pl --gui          # compile + run, enable UVM debug (kdb/trace) and launch Verdi GUI
 #   perl run_vcs.pl --clean        # remove previous build artifacts
 # Options can be combined; --dry-run prints commands without executing.
 
@@ -16,7 +16,7 @@ my $fsdb       = 0;
 my $clean      = 0;
 my $dry_run    = 0;
 my $uvm_test   = 'test';
-my $verdi_flag = 0;
+my $gui_flag   = 0;
 my $vcs_home   = $ENV{VCS_HOME}   || '/home/synopsys/vcs/O-2018.09-SP2';
 my $verdi_home = $ENV{VERDI_HOME} || '/home/synopsys/verdi/Verdi_O-2018.09-SP2';
 
@@ -25,7 +25,7 @@ GetOptions(
     'clean!'     => \$clean,
     'dry-run!'   => \$dry_run,
     'uvm-test=s' => \$uvm_test,
-    'verdi!'     => \$verdi_flag,
+    'gui!'       => \$gui_flag,
 ) or die "Error in command line arguments\n";
 
 my $vcs_bin   = "$vcs_home/bin/vcs";
@@ -59,7 +59,7 @@ my @vcs_cmd = (
     '-f', 'tb.f',
     '-top', 'my_top',
     '-debug_access+all',
-    ($verdi_flag ? '-kdb' : ()),
+    ($gui_flag ? '-kdb' : ()),
     '-P', "$verdi_home/share/PLI/VCS/LINUX64/novas.tab",
           "$verdi_home/share/PLI/VCS/LINUX64/pli.a",
     ($fsdb_def ? $fsdb_def : ()),
@@ -70,14 +70,14 @@ my @sim_cmd = (
     $simv,
     '+UVM_TESTNAME=' . $uvm_test,
     ($fsdb_def ? $fsdb_def : ()),
-    ($verdi_flag ? @uvm_verdi_trace : ()),
+    ($gui_flag ? @uvm_verdi_trace : ()),
     '-l', $sim_log,
 );
 
 run_cmd(join(' ', @vcs_cmd));
 run_cmd(join(' ', @sim_cmd));
 
-if ($verdi_flag) {
+if ($gui_flag) {
     # Verdi UVM debug: use KDB (simv.daidir) and optionally FSDB
     if (!-e $fsdb_file) {
         print "Warning: FSDB file $fsdb_file not found. Verdi will start without waveform.\n";
