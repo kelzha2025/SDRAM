@@ -11,6 +11,8 @@ use File::Basename;
 #   perl run_vcs.pl --gui          # compile + run, enable UVM debug (kdb/trace) and launch Verdi GUI
 #   perl run_vcs.pl --clean        # remove previous build artifacts
 # Options can be combined; --dry-run prints commands without executing.
+# Manual Verdi launch example (if GUI did not auto-open):
+#   verdi -kdb -dbdir simv.daidir -ssf sdram_uvm.fsdb -ssv my_top.sv package.sv -f dut.f -f tb.f &
 
 my $fsdb       = 0;
 my $clean      = 0;

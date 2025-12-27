@@ -18,6 +18,13 @@ import uvm_pkg::*;
 `include "scoreboard.svh"
 `include "env.svh"
 `include "test.svh"
+`include "sdr_seq_item.svh"
+`include "sdr_sequence.svh"
+`include "sdr_sequencer.svh"
+`include "sdr_driver.svh"
+`include "sdr_monitor.svh"
+`include "sdr_agent.svh"
+`include "cov_adapter.svh"
 
 
 endpackage : sdrctrl_package
