@@ -2,33 +2,39 @@
 use strict;
 use warnings;
 use Getopt::Long;
+use File::Basename;
 
-# Simple VCS + Verdi runner for the UVM version of SDRAM verification
+# VCS + Verdi runner for the UVM version of SDRAM verification
 # Usage examples:
 #   perl run_vcs.pl                # compile + run, UVM 1.2, no FSDB
 #   perl run_vcs.pl --fsdb         # compile + run, generate FSDB
+#   perl run_vcs.pl --verdi        # compile + run, then launch Verdi with FSDB and design
 #   perl run_vcs.pl --clean        # remove previous build artifacts
 # Options can be combined; --dry-run prints commands without executing.
 
-my $fsdb      = 0;
-my $clean     = 0;
-my $dry_run   = 0;
-my $uvm_test  = 'test';
-my $vcs_home  = $ENV{VCS_HOME}    || '/home/synopsys/vcs/O-2018.09-SP2';
-my $verdi_home= $ENV{VERDI_HOME}  || '/home/synopsys/verdi/Verdi_O-2018.09-SP2';
+my $fsdb       = 0;
+my $clean      = 0;
+my $dry_run    = 0;
+my $uvm_test   = 'test';
+my $verdi_flag = 0;
+my $vcs_home   = $ENV{VCS_HOME}   || '/home/synopsys/vcs/O-2018.09-SP2';
+my $verdi_home = $ENV{VERDI_HOME} || '/home/synopsys/verdi/Verdi_O-2018.09-SP2';
 
 GetOptions(
     'fsdb!'      => \$fsdb,
     'clean!'     => \$clean,
     'dry-run!'   => \$dry_run,
     'uvm-test=s' => \$uvm_test,
+    'verdi!'     => \$verdi_flag,
 ) or die "Error in command line arguments\n";
 
 my $vcs_bin   = "$vcs_home/bin/vcs";
+my $verdi_bin = "$verdi_home/bin/verdi";
 my $simv      = './simv';
 my $comp_log  = 'comp.log';
 my $sim_log   = 'sim.log';
 my $fsdb_def  = $fsdb ? '+define+FSDB' : '';
+my $fsdb_file = 'sdram_uvm.fsdb';
 
 my @clean_list = (
     'csrc', 'simv', 'simv.daidir', 'ucli.key', 'vcs.key', 'vc_hdrs.h',
@@ -67,6 +73,19 @@ my @sim_cmd = (
 
 run_cmd(join(' ', @vcs_cmd));
 run_cmd(join(' ', @sim_cmd));
+
+if ($verdi_flag) {
+    if (!-e $fsdb_file) {
+        die "FSDB file $fsdb_file not found. Run with --fsdb or check simulation.\n";
+    }
+    my @verdi_cmd = (
+        $verdi_bin,
+        '-ssf', $fsdb_file,
+        '-ssv', 'my_top.sv', 'package.sv',
+        '-f', 'dut.f', '-f', 'tb.f',
+    );
+    run_cmd(join(' ', @verdi_cmd) . ' &');
+}
 
 exit 0;
 
