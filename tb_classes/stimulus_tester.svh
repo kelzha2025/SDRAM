@@ -9,7 +9,7 @@
 //				  test cases are provided to run it on the DUT.
 /******************************************************/
 
-virtual class stimulus_tester extends uvm_component;
+class stimulus_tester extends uvm_component;
 `uvm_component_utils(stimulus_tester)
 	parameter integer NO_OF_TESTS =50;
 	int addr_array[$];
@@ -27,8 +27,15 @@ virtual class stimulus_tester extends uvm_component;
 			$fatal("Failed to get BFM");
 	endfunction : build_phase
 
-	pure virtual function logic [31:0] get_addr();
-    pure virtual function logic [7:0] get_bl();
+	virtual function logic [31:0] get_addr();
+	    // Default implementation to avoid abstract class instantiation; can be overridden
+        return $urandom_range(0, 32'hFFFF_FFFF);
+    endfunction
+
+    virtual function logic [7:0] get_bl();
+	    // Default implementation to avoid abstract class instantiation; can be overridden
+        return $urandom_range(0, 8'hFF);
+    endfunction
     
 	
 	task run_phase  (uvm_phase phase);
