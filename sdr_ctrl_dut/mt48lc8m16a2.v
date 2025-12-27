@@ -26,7 +26,7 @@
 *                IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR
 *                A PARTICULAR PURPOSE, OR AGAINST INFRINGEMENT.
 *
-*                Copyright © 1998 Micron Semiconductor Products, Inc.
+*                Copyright  1998 Micron Semiconductor Products, Inc.
 *                All rights researved
 *
 * Rev   Author          Phone         Date        Changes
@@ -124,6 +124,8 @@ module mt48lc8m16a2 (Dq, Addr, Ba, Clk, Cke, Cs_n, Ras_n, Cas_n, We_n, Dqm);
     assign    Dq               = Dq_reg;                        // DQ buffer
 
     // Commands Operation
+`ifndef SDRAM_CMD_MACROS
+`define SDRAM_CMD_MACROS
     `define   ACT       0
     `define   NOP       1
     `define   READ      2
@@ -134,6 +136,7 @@ module mt48lc8m16a2 (Dq, Addr, Ba, Clk, Cke, Cs_n, Ras_n, Cas_n, We_n, Dqm);
     `define   A_REF     7
     `define   BST       8
     `define   LMR       9
+`endif
 
     // Timing Parameters for -75 (PC133) and CAS Latency = 2
     parameter tAC  =   6.0;

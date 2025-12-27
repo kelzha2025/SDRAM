@@ -1,5 +1,7 @@
+// Include path for local SDRAM controller headers
++incdir+./sdr_ctrl_dut
+
 sdr_ctrl_dut/IS42VM16400K.v
-sdr_ctrl_dut/async_fifo.v
 sdr_ctrl_dut/mt48lc2m32b2.v
 sdr_ctrl_dut/mt48lc4m16.v
 sdr_ctrl_dut/mt48lc4m32b2.v

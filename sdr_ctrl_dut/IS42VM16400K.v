@@ -207,6 +207,8 @@
     assign    dq               = dq_reg;                        // DQ buffer
 
     // Commands Operation
+`ifndef SDRAM_CMD_MACROS
+`define SDRAM_CMD_MACROS
     `define   ACT       0
     `define   NOP       1
     `define   READ      2
@@ -215,6 +217,7 @@
     `define   A_REF     5
     `define   BST       6
     `define   LMR       7
+`endif
 
     // Timing Check variable
     real  MRD_chk;

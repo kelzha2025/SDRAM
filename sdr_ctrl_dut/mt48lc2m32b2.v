@@ -24,7 +24,7 @@
 *                IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR
 *                A PARTICULAR PURPOSE, OR AGAINST INFRINGEMENT.
 *
-*                Copyright © 2001 Micron Semiconductor Products, Inc.
+*                Copyright  2001 Micron Semiconductor Products, Inc.
 *                All rights researved
 *
 * Rev  Author          Date        Changes
@@ -126,6 +126,8 @@ module mt48lc2m32b2 (Dq, Addr, Ba, Clk, Cke, Cs_n, Ras_n, Cas_n, We_n, Dqm);
     assign    Dq               = Dq_reg;                        // DQ buffer
 
     // Commands Operation
+`ifndef SDRAM_CMD_MACROS
+`define SDRAM_CMD_MACROS
     `define   ACT       0
     `define   NOP       1
     `define   READ      2
@@ -134,6 +136,7 @@ module mt48lc2m32b2 (Dq, Addr, Ba, Clk, Cke, Cs_n, Ras_n, Cas_n, We_n, Dqm);
     `define   A_REF     5
     `define   BST       6
     `define   LMR       7
+`endif
 
     // Timing Parameters for -6 CL3
     parameter tAC  =   5.5;
