@@ -12,12 +12,7 @@ package sdrctrl_package;
 import uvm_pkg::*;
 
 `include "uvm_macros.svh"
-`include "coverage.svh"
-`include "stimulus_tester.svh"
-`include "stimulus_values.svh"
-`include "scoreboard.svh"
-`include "env.svh"
-`include "test.svh"
+// Core transaction and agent components
 `include "sdr_seq_item.svh"
 `include "sdr_sequence.svh"
 `include "sdr_sequencer.svh"
@@ -25,6 +20,14 @@ import uvm_pkg::*;
 `include "sdr_monitor.svh"
 `include "sdr_agent.svh"
 `include "cov_adapter.svh"
+
+// Legacy/testbench utilities
+`include "coverage.svh"
+`include "stimulus_tester.svh"
+`include "stimulus_values.svh"
+`include "scoreboard.svh"
+`include "env.svh"
+`include "test.svh"
 
 
 endpackage : sdrctrl_package
