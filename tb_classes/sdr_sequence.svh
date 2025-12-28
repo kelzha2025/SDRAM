@@ -14,8 +14,6 @@ class sdr_sequence extends uvm_sequence #(sdr_seq_item);
       req = sdr_seq_item::type_id::create($sformatf("req_%0d", i));
       assert(req.randomize() with {
         cmd dist { SDR_WRITE := 50, SDR_READ := 50 };
-        addr == $urandom_range(0, 32'hFFFF_FFFF);
-        burst_len == $urandom_range(1, 8'hFF);
       });
       start_item(req);
       finish_item(req);
