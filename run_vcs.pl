@@ -8,7 +8,7 @@ use File::Basename;
 # Usage examples:
 #   perl run_vcs.pl                # compile + run, UVM 1.2, no FSDB
 #   perl run_vcs.pl --fsdb         # compile + run, generate FSDB
-#   perl run_vcs.pl --gui          # compile + run, enable UVM debug (kdb/trace) and launch Verdi GUI
+#   perl run_vcs.pl --gui          # compile + run, enable UVM debug (kdb/trace: hier+seq) and launch Verdi GUI
 #   perl run_vcs.pl --clean        # remove previous build artifacts
 # Options can be combined; --dry-run prints commands without executing.
 # Manual Verdi launch example (if GUI did not auto-open):
@@ -37,7 +37,12 @@ my $comp_log  = 'comp.log';
 my $sim_log   = 'sim.log';
 my $fsdb_def  = $fsdb ? '+define+FSDB' : '';
 my $fsdb_file = 'sdram_uvm.fsdb';
-my @uvm_verdi_trace = ('+UVM_VERDI_ENABLE=1', '+UVM_VERDI_TRACE=ALL');
+my @uvm_verdi_trace = (
+    '+UVM_VERDI_ENABLE=1',
+    '+UVM_VERDI_TRACE=ALL',
+    '+UVM_VERDI_TRACE=HIER',  # hierarchy/TLM info
+    '+UVM_TR_RECORD'          # sequence history
+);
 
 my @clean_list = (
     'csrc', 'simv', 'simv.daidir', 'ucli.key', 'vcs.key', 'vc_hdrs.h',
