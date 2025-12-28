@@ -86,6 +86,7 @@ if ($gui_flag) {
     }
     my @verdi_cmd = (
         $verdi_bin,
+        '-uvmDebug',
         '-kdb',
         '-dbdir', 'simv.daidir',
         ($fsdb_file && -e $fsdb_file ? ('-ssf', $fsdb_file) : ()),
