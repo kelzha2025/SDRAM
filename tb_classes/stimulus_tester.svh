@@ -1,6 +1,4 @@
 /******************************************************/
-//				  Manasa Gurrala
-//				  Naveen Yalla
 // Description	: This class is the stimulus to the validation design. The values are
 //				  extracted from the class stimulus_values class and based on the protocol the 
 //				  test cases are provided to run it on the DUT.

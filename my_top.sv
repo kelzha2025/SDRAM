@@ -1,11 +1,6 @@
 /////////////////////////////////////////////////////////////////
 ////        This is the package file.                        ////
 ////                                                         ////
-////                                                         ////
-////     Created By: Manasa Gurrala                          ////
-////                 Venkata Naveen Reddy Yalla              ////
-////                 Karthik Rudraraju                       ////
-////                                                         ////
 /////////////////////////////////////////////////////////////////
 
 `define SDR_16BIT = 1;

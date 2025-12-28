@@ -1,6 +1,4 @@
 /******************************************************/
-//				  Manasa Gurrala
-//				  Naveen Yalla
 // Description	: This is the top class to test required functionalities in the design
 //				  This class is invoked using the UVM_TESTNAME in run.do. Based on the 
 //				  test required the stimulus tester is overwritten in this class and calls

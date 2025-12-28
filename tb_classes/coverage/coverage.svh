@@ -1,6 +1,4 @@
 /******************************************************/
-//				  Manasa Gurrala
-//				  Naveen Yalla
 // Description	: This class monitors the stimulus and checks whether it covers the required 
 //				  regions. These regions are based on the specific requirements of the Verification
 //				  flow.

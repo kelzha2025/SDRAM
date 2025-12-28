@@ -1,6 +1,4 @@
 /******************************************************/
-//				  Manasa Gurrala
-//				  Naveen Yalla
 // Description	: This class is the generation of the values required for the stimulus_tester
 //				  class. The address and burst length are randomly generated using the random function.
 //				  This is UVM based. 

@@ -1,6 +1,4 @@
 /******************************************************/
-//				  Manasa Gurrala
-//				  Naveen Yalla
 // Description	: It contains the checker which checkes the obtained output with the expected
 //				  output. It uses queues for its fuctionality. 
 /******************************************************/

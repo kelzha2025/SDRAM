@@ -1,6 +1,4 @@
 /******************************************************/
-//				  Manasa Gurrala
-//				  Naveen Yalla
 // Description	: This creates the environment for the test. It invokes all the classes required
 // 				  It has the stimulus class sending the commands and test cases to be tested to 
 //				  the DUT. Coverage and scoreboard are monitors working in DUV to meet its own fuctionality.  
