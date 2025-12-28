@@ -3,11 +3,11 @@ class cov_adapter extends uvm_component;
   `uvm_component_utils(cov_adapter)
 
   coverage cov_h;
-  uvm_analysis_export #(sdr_seq_item) analysis_export;
+  uvm_analysis_imp #(sdr_seq_item, cov_adapter) analysis_imp;
 
   function new(string name, uvm_component parent);
     super.new(name, parent);
-    analysis_export = new("analysis_export", this);
+    analysis_imp = new("analysis_imp", this);
   endfunction
 
   function void build_phase(uvm_phase phase);

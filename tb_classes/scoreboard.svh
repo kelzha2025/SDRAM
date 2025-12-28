@@ -5,12 +5,12 @@
 class scoreboard extends uvm_component;
   `uvm_component_utils(scoreboard)
 
-  uvm_analysis_export #(sdr_seq_item) analysis_export;
+  uvm_analysis_imp #(sdr_seq_item, scoreboard) analysis_imp;
   logic [31:0] data_assoc[int];
 
   function new (string name, uvm_component parent);
     super.new(name, parent);
-    analysis_export = new("analysis_export", this);
+    analysis_imp = new("analysis_imp", this);
   endfunction : new
 
   function bit is_valid_addr(logic [31:0] addr);

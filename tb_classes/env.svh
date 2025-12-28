@@ -19,8 +19,8 @@ class env extends uvm_env;
    endfunction : build_phase
 
    function void connect_phase(uvm_phase phase);
-      agent_h.ap.connect(scoreboard_h.analysis_export);
-      agent_h.ap.connect(cov_adpt_h.analysis_export);
+      agent_h.ap.connect(scoreboard_h.analysis_imp);
+      agent_h.ap.connect(cov_adpt_h.analysis_imp);
    endfunction : connect_phase
 
    function new (string name, uvm_component parent);
