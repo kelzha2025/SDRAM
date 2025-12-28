@@ -24,10 +24,8 @@
 *                IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR
 *                A PARTICULAR PURPOSE, OR AGAINST INFRINGEMENT.
 *
-*                Copyright  2001 Micron Semiconductor Products, Inc.
 *                All rights researved
 *
-* Rev  Author          Date        Changes
 * ---  --------------------------  ---------------------------------------
 * 2.1  SH              06/06/2002  - Typo in bank multiplex
 *      Micron Technology Inc.

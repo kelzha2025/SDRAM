@@ -1,7 +1,4 @@
 /******************************************************/
-// Title 		: stimulus_values.svh
-// Project Name : SDRAM Controller with wishbone Validation
-// Author		: Karthik Rudraraju
 //				  Manasa Gurrala
 //				  Naveen Yalla
 // Description	: This creates the environment for the test. It invokes all the classes required

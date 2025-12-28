@@ -1,7 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //  File name : mt48lc4m16.v
 //////////////////////////////////////////////////////////////////////////////
-//  Copyright (C) 2008 Free Model Foundry; http://www.freemodelfoundry.com
 //
 //  This program is free software; you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License version 2 as
@@ -9,7 +8,6 @@
 //
 //  MODIFICATION HISTORY:
 //
-//  version: |  author:       |  mod date:  | changes made:
 //    V1.0     S.Janevski       08 Feb 27    Initial release
 //    V1.1     S.Janevski       08 Mar 26    Assertions of wrong DQM settings during powerup removed
 //////////////////////////////////////////////////////////////////////////////

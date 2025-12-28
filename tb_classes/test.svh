@@ -1,7 +1,4 @@
 /******************************************************/
-// Title 		: test.svh
-// Project Name : SDRAM Controller with wishbone Validation
-// Author		: Karthik Rudraraju
 //				  Manasa Gurrala
 //				  Naveen Yalla
 // Description	: This is the top class to test required functionalities in the design

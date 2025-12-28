@@ -1,6 +1,5 @@
 /************************************************************************
 *
-* Copyright(c) ISSI Inc., 2010
 *
 * == 64M Low power SDRAM behavioral Model by ESC ==
 *

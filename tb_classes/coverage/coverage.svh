@@ -1,7 +1,4 @@
 /******************************************************/
-// Title 		: stimulus_values.svh
-// Project Name : SDRAM Controller with wishbone Validation
-// Author		: Karthik Rudraraju
 //				  Manasa Gurrala
 //				  Naveen Yalla
 // Description	: This class monitors the stimulus and checks whether it covers the required 

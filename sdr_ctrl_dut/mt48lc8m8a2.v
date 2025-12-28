@@ -8,7 +8,6 @@
 *
 * Dependencies:  None
 *
-*       Author:  Son P. Huynh
 *        Email:  sphuynh@micron.com
 *        Phone:  (208) 368-3825
 *      Company:  Micron Technology, Inc.
@@ -26,10 +25,8 @@
 *                IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR
 *                A PARTICULAR PURPOSE, OR AGAINST INFRINGEMENT.
 *
-*                Copyright © 1998 Micron Semiconductor Products, Inc.
 *                All rights researved
 *
-* Rev   Author          Phone         Date        Changes
 * ----  ----------------------------  ----------  ---------------------------------------
 * 0.0f  Son Huynh       208-368-3825  07/08/1999  - Fix tWR = 1 Clk + 7.5 ns (Auto)
 *       Micron Technology Inc.                    - Fix tWR = 15 ns (Manual)

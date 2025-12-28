@@ -1,7 +1,4 @@
 /******************************************************/
-// Title 		: stimulus_values.svh
-// Project Name : SDRAM Controller with wishbone Validation
-// Author		: Karthik Rudraraju
 //				  Manasa Gurrala
 //				  Naveen Yalla
 // Description	: It contains the checker which checkes the obtained output with the expected
