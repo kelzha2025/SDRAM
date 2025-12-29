@@ -36,7 +36,7 @@ my $simv      = './simv';
 my $comp_log  = 'comp.log';
 my $sim_log   = 'sim.log';
 my $fsdb_def  = $fsdb ? '+define+FSDB' : '';
-my $fsdb_file = 'sdram_uvm.fsdb';
+my $fsdb_file = 'test.fsdb';
 my @uvm_verdi_trace = (
     '+UVM_VERDI_ENABLE=1',
     '+UVM_VERDI_TRACE=ALL',
@@ -45,8 +45,8 @@ my @uvm_verdi_trace = (
 );
 
 my @clean_list = (
-    'csrc', 'simv', 'simv.daidir', 'ucli.key', 'vcs.key', 'vc_hdrs.h',
-    'sim.log', 'comp.log', 'DVEfiles', 'urgReport', 'vdb',
+    'csrc', 'simv', 'simv.daidir', 'ucli.key', 'vcs.key', 'vc_hdrs.h', 'novas.conf','verdiLog', 
+    'sim.log', 'comp.log','*.fsdb', 'DVEfiles', 'novas.rc', 'urgReport','novas_dump.log', 'simv.vdb',
 );
 
 if ($clean) {
@@ -79,6 +79,7 @@ my @sim_cmd = (
     ($fsdb_def ? $fsdb_def : ()),
     ($gui_flag ? @uvm_verdi_trace : ()),
     '-l', $sim_log,
+    #'+fsdbfile+test.fsdb',
 );
 
 run_cmd(join(' ', @vcs_cmd));
@@ -93,6 +94,7 @@ if ($gui_flag) {
         $verdi_bin,
         '-uvmDebug',
         '-kdb',
+        '-ntb_opts', 'uvm-1.2',
         '-dbdir', 'simv.daidir',
         ($fsdb_file && -e $fsdb_file ? ('-ssf', $fsdb_file) : ()),
         '-ssv', 'my_top.sv', 'package.sv',

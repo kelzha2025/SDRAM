@@ -137,11 +137,11 @@ begin
 end
 
 // FSDB dump hook for Verdi debugging when FSDB is enabled
-initial begin
-`ifdef FSDB
-  $fsdbDumpfile("sdram_uvm.fsdb");
-  $fsdbDumpvars(0, my_top);
-`endif
-end
+//initial begin
+//`ifdef FSDB
+//  $fsdbDumpfile("sdram_uvm.fsdb");
+//  $fsdbDumpvars(0, my_top);
+//`endif
+//end
 
 endmodule
