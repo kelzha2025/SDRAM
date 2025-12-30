@@ -1967,8 +1967,11 @@ module mt48lc4m32b2
 
 endmodule
 
+`ifndef SDRAM_BUFFER_CELL
+`define SDRAM_BUFFER_CELL
 module BUFFER (OUT,IN);
     input IN;
     output OUT;
-        buf (OUT, IN);
+    buf (OUT, IN);
 endmodule
+`endif
