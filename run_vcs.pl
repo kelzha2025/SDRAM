@@ -3,6 +3,10 @@ use strict;
 use warnings;
 use Getopt::Long;
 use File::Basename;
+use Cwd qw(getcwd);
+
+$ENV{SYNOPSYS_SIM_SETUP} = getcwd() . "/synopsys_sim.setup";
+print "SYNOPSYS_SIM_SETUP=$ENV{SYNOPSYS_SIM_SETUP}\n";
 
 # VCS + Verdi runner for the UVM version of SDRAM verification
 # Usage examples:
@@ -30,10 +34,14 @@ GetOptions(
     'gui!'       => \$gui_flag,
 ) or die "Error in command line arguments\n";
 
+my $vlogan_bin   = "$vcs_home/bin/vlogan";
 my $vcs_bin   = "$vcs_home/bin/vcs";
 my $verdi_bin = "$verdi_home/bin/verdi";
 my $simv      = './simv';
+my $comp_ana1_log  = 'comp_ana1.log';
+my $comp_ana2_log  = 'comp_ana2.log';
 my $comp_log  = 'comp.log';
+my $comp_elab_log  = 'comp_elab.log';
 my $sim_log   = 'sim.log';
 my $fsdb_def  = $fsdb ? '+define+FSDB' : '';
 my $fsdb_file = 'test.fsdb';
@@ -55,33 +63,70 @@ if ($clean) {
     }
     exit 0;
 }
-
+my @vlogan1_cmd = (
+    $vlogan_bin,
+    '-full64',
+    '-sverilog',
+    '-ntb_opts', 'uvm-1.2',
+    '-work', 'work',
+    '-l', $comp_ana1_log,
+);
+my @vlogan2_cmd = (
+    $vlogan_bin,
+    '-full64',
+    '-sverilog',
+    '-ntb_opts', 'uvm-1.2',
+    '-f', 'dut.f',
+    '-f', 'tb.f',
+    ($gui_flag ? '-kdb' : ()),
+    ($fsdb_def ? $fsdb_def : ()),
+    '-l', $comp_ana2_log,
+    '-work', 'work',
+);
 my @vcs_cmd = (
     $vcs_bin,
     '-full64',
     '-sverilog',
     '-timescale=1ns/1ps',
     '-ntb_opts', 'uvm-1.2',
-    '-f', 'dut.f',
-    '-f', 'tb.f',
     '-top', 'my_top',
     '-debug_access+all',
     ($gui_flag ? '-kdb' : ()),
     '-P', "$verdi_home/share/PLI/VCS/LINUX64/novas.tab",
           "$verdi_home/share/PLI/VCS/LINUX64/pli.a",
-    ($fsdb_def ? $fsdb_def : ()),
-    '-l', $comp_log,
+    '-l', $comp_elab_log,
+    'work.my_top',
 );
+
+
+# 2 stage compile
+#my @vcs_cmd = (
+#    $vcs_bin,
+#    '-full64',
+#    '-sverilog',
+#    '-timescale=1ns/1ps',
+#    '-ntb_opts', 'uvm-1.2',
+#    '-f', 'dut.f',
+#    '-f', 'tb.f',
+#    '-top', 'my_top',
+#    '-debug_access+all',
+#    ($gui_flag ? '-kdb' : ()),
+#    '-P', "$verdi_home/share/PLI/VCS/LINUX64/novas.tab",
+#          "$verdi_home/share/PLI/VCS/LINUX64/pli.a",
+#    ($fsdb_def ? $fsdb_def : ()),
+#    '-l', $comp_log,
+#);
 
 my @sim_cmd = (
     $simv,
     '+UVM_TESTNAME=' . $uvm_test,
-    ($fsdb_def ? $fsdb_def : ()),
     ($gui_flag ? @uvm_verdi_trace : ()),
     '-l', $sim_log,
     #'+fsdbfile+test.fsdb',
 );
 
+run_cmd(join(' ', @vlogan1_cmd));
+run_cmd(join(' ', @vlogan2_cmd));
 run_cmd(join(' ', @vcs_cmd));
 run_cmd(join(' ', @sim_cmd));
 
