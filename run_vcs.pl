@@ -68,7 +68,7 @@ my @vlogan1_cmd = (
     '-full64',
     '-sverilog',
     '-ntb_opts', 'uvm-1.2',
-    '-work', 'work',
+    '-work', 'WORK',
     '-l', $comp_ana1_log,
 );
 my @vlogan2_cmd = (
@@ -81,7 +81,7 @@ my @vlogan2_cmd = (
     ($gui_flag ? '-kdb' : ()),
     ($fsdb_def ? $fsdb_def : ()),
     '-l', $comp_ana2_log,
-    '-work', 'work',
+    '-work', 'WORK',
 );
 my @vcs_cmd = (
     $vcs_bin,
@@ -95,7 +95,6 @@ my @vcs_cmd = (
     '-P', "$verdi_home/share/PLI/VCS/LINUX64/novas.tab",
           "$verdi_home/share/PLI/VCS/LINUX64/pli.a",
     '-l', $comp_elab_log,
-    'work.my_top',
 );
 
 
